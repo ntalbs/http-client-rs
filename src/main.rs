@@ -3,9 +3,15 @@ use std::{
     io::{Read, Write},
     net::TcpStream,
 };
+use rust_uri::Uri;
+
 fn main() {
     const BUF_SIZE: usize = 4096;
-    let mut stream = TcpStream::connect("localhost:3000").unwrap();
+    let uri = Uri::from_str("http://localhost:3000").unwrap();
+    let hostname = uri.hostname;
+    let port = uri.port.unwrap();
+
+    let mut stream = TcpStream::connect(format!("{hostname}:{port}")).unwrap();
 
     let host = "localhost";
     let path = "/hello/world?query=100";
@@ -29,5 +35,5 @@ fn main() {
         }
         print!("{}", str::from_utf8(&buf).unwrap());
     }
-    println!("");
+    println!();
 }

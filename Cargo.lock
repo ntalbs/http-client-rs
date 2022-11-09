@@ -5,3 +5,11 @@ version = 3
 [[package]]
 name = "http-client-rs"
 version = "0.1.0"
+dependencies = [
+ "rust-uri",
+]
+
+[[package]]
+name = "rust-uri"
+version = "0.1.0"
+source = "git+https://github.com/ntalbs/rust-uri.git#a61d913ba4c8b8d74bdc1a11959b486ad01bb2b4"
