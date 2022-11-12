@@ -1,24 +1,35 @@
+use clap::Parser;
+use rust_uri::Uri;
 use std::str;
 use std::{
     io::{Read, Write},
     net::TcpStream,
 };
-use rust_uri::Uri;
+
+#[derive(Debug, Parser)]
+struct Arguments {
+    url: String,
+}
 
 fn main() {
     const BUF_SIZE: usize = 4096;
-    let uri = Uri::from_str("http://localhost:3000").unwrap();
+
+    let args = Arguments::parse();
+    let uri = Uri::from_str(&args.url).unwrap();
+
     let hostname = uri.hostname;
-    let port = uri.port.unwrap();
+    let path = uri.path;
+    let addr = match uri.port {
+        Some(port) => format!("{}:{}", &hostname, port),
+        None => hostname.clone(),
+    };
 
-    let mut stream = TcpStream::connect(format!("{hostname}:{port}")).unwrap();
+    let mut stream = TcpStream::connect(addr).unwrap();
 
-    let host = "localhost";
-    let path = "/hello/world?query=100";
-
-    let req = format!("\
+    let req = format!(
+        "\
         GET {path} HTTP/1.1\r\n\
-        Host: {host}\r\n\
+        Host: {hostname}\r\n\
         \r\n"
     );
 

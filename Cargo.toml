@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rust-uri = { git = "https://github.com/ntalbs/rust-uri.git" }
+clap = { version = "4", features = ["derive"] }
