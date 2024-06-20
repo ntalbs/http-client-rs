@@ -4,6 +4,7 @@ use std::str;
 use std::{
     io::{Read, Write},
     net::TcpStream,
+    str::FromStr,
 };
 
 #[derive(Debug, Parser)]
