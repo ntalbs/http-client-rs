@@ -49,3 +49,22 @@ fn main() {
     }
     println!();
 }
+
+
+#[test]
+fn test() {
+    let path = "/index.html";
+    let hostname = "www.example.com";
+    let req = format!(
+        "\
+        GET {path} HTTP/1.1\r\n\
+        Host: {hostname}\r\n\
+        \r\n"
+        // r#"
+        // GET {path} HTTP/1.1\r\n\
+        // Host: {hostname}\r\n\
+        // "#
+    );
+
+    println!(">>> {req}");
+}
